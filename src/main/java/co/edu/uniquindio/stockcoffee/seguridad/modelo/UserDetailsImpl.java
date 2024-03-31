@@ -1,7 +1,6 @@
 package co.edu.uniquindio.stockcoffee.seguridad.modelo;
 
-import co.edu.uniquindio.stockcoffee.entidades.Persona;
-import co.edu.uniquindio.stockcoffee.entidades.Usuario;
+import co.edu.uniquindio.stockcoffee.entidades.Administrador;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,12 +13,12 @@ import java.util.List;
 public class UserDetailsImpl implements UserDetails {
     private String username, password, codigo;
     private Collection<? extends GrantedAuthority> authorities;
-    public static UserDetailsImpl build(Persona user){
+    public static UserDetailsImpl build(Administrador user){
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if(user instanceof Usuario){
-            authorities.add( new SimpleGrantedAuthority("CLIENTE") );
+        if(user instanceof Administrador){
+            authorities.add( new SimpleGrantedAuthority("ADMINISTRADOR") );
         }
-        return new UserDetailsImpl(user.getEmail(), user.getContrasena(), user.getCedula(), authorities);
+        return new UserDetailsImpl(user.getCorreo(), user.getContrasena(), user.getId() + "", authorities);
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

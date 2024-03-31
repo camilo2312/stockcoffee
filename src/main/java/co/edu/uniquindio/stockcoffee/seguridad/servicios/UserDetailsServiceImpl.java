@@ -1,7 +1,7 @@
 package co.edu.uniquindio.stockcoffee.seguridad.servicios;
 
-import co.edu.uniquindio.stockcoffee.entidades.Usuario;
-import co.edu.uniquindio.stockcoffee.repositorios.UsuarioRepo;
+import co.edu.uniquindio.stockcoffee.entidades.Administrador;
+import co.edu.uniquindio.stockcoffee.repositorios.AdministradorRepo;
 import co.edu.uniquindio.stockcoffee.seguridad.modelo.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,16 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private UsuarioRepo clienteRepo;
+    private AdministradorRepo administradorRepo;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Usuario cliente = clienteRepo.findByEmail(email);
-        if(cliente == null){
+        Administrador admin = administradorRepo.findByEmail(email);
+        if(admin == null){
 
         }else{
-            return UserDetailsImpl.build(cliente);
+            return UserDetailsImpl.build(admin);
         }
 
         return null;
